@@ -1,6 +1,11 @@
-exports.verifyToken = (req, res, next) => {
+const jwt = require('jsonwebtoken');
+
+const config = require('../environment');
+const logger = require('../../utils/logger');
+
+exports.verifyToken = async (req, res, next) => {
 	try {
-		if(!req.isAuthenticated()){
+		if(!req.headers.authorization){
 			return res.status(401).send('Unauhtorized Request');
 		}
 
@@ -10,17 +15,16 @@ exports.verifyToken = (req, res, next) => {
 			return res.status(401).send('Unauhtorized Request');
 		}
 
-		const payload = await jwt.verify(token, 'secretkey');
+		const payload = await jwt.verify(token, config.secretKeyJWT);
 		if (!payload) {
 			return res.status(401).send('Unauhtorized Request');
 		}
-		req.userId = payload._id;
-		next();
-	} catch(e) {
-		return res.status(401).send('Unauhtorized Request');
-	}
 
-	if (req.isAuthenticated) {
-		return res.status(204).send('This user is already logged');
+		req.userId = payload._id;
+
+		next();
+	} catch(err) {
+		logger.error(err);
+		return res.status(401).send('Unauhtorized Request');
 	}
 };

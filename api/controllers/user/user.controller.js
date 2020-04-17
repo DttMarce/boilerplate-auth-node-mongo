@@ -65,3 +65,7 @@ exports.loginUser = async function (req, res) {
 		logger.error(error);
 	}
 };
+
+exports.privateShoppingList = function (req, res) {
+	return res.status(200).send({message: 'This is the private shopping-list'});
+};
