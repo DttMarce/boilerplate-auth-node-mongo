@@ -13,12 +13,6 @@ router.post(
 );
 
 router.post(
-	'/logout/',
-	userValidation,
-	userController.loginUser
-);
-
-router.post(
 	'/register/',
 	userValidation,
 	userController.registerUser
