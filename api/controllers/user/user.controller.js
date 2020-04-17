@@ -28,7 +28,7 @@ exports.registerUser = async function (req, res) {
 			{expiresIn: 24*60*60}
 		);
 
-		return res.status(200).send({userToken: token});
+		return res.status(200).send({ userToken: token });
 	});
 };
 
@@ -43,23 +43,23 @@ exports.loginUser = async function (req, res) {
 				return res.status(500).send('Server error');
 			}
 
-			if(!userFounded) {
+			if (!userFounded) {
 				return res.status(404).send({message: 'User is not on the bbdd'})
 			}
 
 			const resultPassword = await bcrypt.compareSync(reqData.password, userFounded.password);
 
-			if(resultPassword) {
+			if (resultPassword) {
 				const token = await jwt.sign(
 					{_id: userFounded._id},
 					config.secretKeyJWT,
 					{expiresIn: 24*60*60}
 				);
 
-				return res.status(200).send({userToken: token});
+				return res.status(200).send({ userToken: token });
 			}
 
-			return res.status(404).send({message: 'User is not on the bbdd'})
+			return res.status(404).send({ message: 'User is not on the bbdd' })
 		});
 	} catch (error) {
 		logger.error(error);
@@ -67,5 +67,5 @@ exports.loginUser = async function (req, res) {
 };
 
 exports.privateShoppingList = function (req, res) {
-	return res.status(200).send({message: 'This is the private shopping-list'});
+	return res.status(200).send({ message: 'This is the private shopping-list' });
 };

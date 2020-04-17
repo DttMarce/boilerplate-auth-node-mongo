@@ -5,7 +5,7 @@ const logger = require('../../utils/logger');
 
 exports.verifyToken = async (req, res, next) => {
 	try {
-		if(!req.headers.authorization){
+		if (!req.headers.authorization) {
 			return res.status(401).send('Unauthorized Request');
 		}
 

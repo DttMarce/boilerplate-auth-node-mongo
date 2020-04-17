@@ -19,7 +19,7 @@ class Logger {
 	}
 
 	get console() {
-		const {format: {colorize, timestamp, align, printf, combine}} = winston;
+		const { format: { colorize, timestamp, align, printf, combine } } = winston;
 
 		return new winston.transports.Console({
 			level: this.level,
