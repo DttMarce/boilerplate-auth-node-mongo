@@ -29,7 +29,7 @@ exports.verifyToken = async (req, res, next) => {
 	}
 };
 
-exports.checkIfAlreadyAuth = (req, res, next) => {
+exports.checkIfAlreadyLogged = (req, res, next) => {
 	try {
 		if (req.headers.authorization) {
 			return res.status(204).send('This user is already logged');

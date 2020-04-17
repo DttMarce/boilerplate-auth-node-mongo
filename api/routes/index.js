@@ -1,14 +1,14 @@
 const { Router } = require('express');
 
 const { userController, userValidation } = require('../controllers/user');
-const { verifyToken, checkIfAlreadyAuth } = require('../../config/middleware/request-control');
+const { verifyToken, checkIfAlreadyLogged } = require('../../config/middleware/request-control');
 
 const router = new Router();
 
 router.post(
 	'/login/',
 	userValidation,
-	checkIfAlreadyAuth,
+	checkIfAlreadyLogged,
 	userController.loginUser
 );
 
