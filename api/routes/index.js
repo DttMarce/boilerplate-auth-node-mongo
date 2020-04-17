@@ -1,7 +1,7 @@
 const { Router } = require('express');
 
 const { userController, userValidation } = require('../controllers/user');
-const { verifyToken, checkIfAlreadyLogged } = require('../../config/middleware/request-control');
+const { verifyToken } = require('../../config/middleware/request-control');
 
 const router = new Router();
 
