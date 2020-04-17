@@ -28,15 +28,3 @@ exports.verifyToken = async (req, res, next) => {
 		return res.status(401).send('Unauthorized Request');
 	}
 };
-
-exports.checkIfAlreadyLogged = (req, res, next) => {
-	try {
-		if (req.headers.authorization) {
-			return res.status(204).send('This user is already logged');
-		}
-
-		next();
-	} catch (error) {
-		logger.error(error);
-	}
-}

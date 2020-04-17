@@ -8,7 +8,6 @@ const router = new Router();
 router.post(
 	'/login/',
 	userValidation,
-	checkIfAlreadyLogged,
 	userController.loginUser
 );
 
