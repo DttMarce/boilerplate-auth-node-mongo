@@ -28,7 +28,7 @@ exports.registerUser = async function (req, res) {
 			{expiresIn: 24*60*60}
 		);
 
-		res.status(200).send({userToken: token});
+		return res.status(200).send({userToken: token});
 	});
 };
 
@@ -38,7 +38,7 @@ exports.loginUser = async function (req, res) {
 	try {
 		await User.findOne({
 			email: reqData.email
-		}, (err, userFounded) => {
+		}, async (err, userFounded) => {
 			if (err) {
 				return res.status(500).send('Server error');
 			}
@@ -47,16 +47,16 @@ exports.loginUser = async function (req, res) {
 				return res.status(404).send({message: 'User is not on the bbdd'})
 			}
 
-			const resultPassword = bcrypt.compareSync(reqData.password, userFounded.password);
+			const resultPassword = await bcrypt.compareSync(reqData.password, userFounded.password);
 
 			if(resultPassword) {
-				const token = jwt.sign(
+				const token = await jwt.sign(
 					{_id: userFounded._id},
 					config.secretKeyJWT,
 					{expiresIn: 24*60*60}
 				);
 
-				res.status(200).send({userToken: token});
+				return res.status(200).send({userToken: token});
 			}
 
 			return res.status(404).send({message: 'User is not on the bbdd'})
@@ -64,4 +64,8 @@ exports.loginUser = async function (req, res) {
 	} catch (error) {
 		logger.error(error);
 	}
+};
+
+exports.privateShoppingList = function (req, res) {
+	return res.status(200).send({message: 'This is the private shopping-list'});
 };

@@ -31,14 +31,6 @@ class Logger {
 			)
 		});
 	}
-
-	get stream() {
-		return {
-			write: (message, encoding) => {
-				this.logger.info(message);
-			}
-		};
-	}
 }
 
 module.exports = new Logger(config.logger.level);

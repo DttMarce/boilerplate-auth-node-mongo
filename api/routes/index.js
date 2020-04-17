@@ -1,6 +1,7 @@
 const { Router } = require('express');
 
 const { userController, userValidation } = require('../controllers/user');
+const { verifyToken, checkIfAlreadyLogged } = require('../../config/middleware/request-control');
 
 const router = new Router();
 
@@ -16,13 +17,10 @@ router.post(
 	userController.registerUser
 );
 
-// router.get(
-// 	'/tasks/',
-// 	architectController.removeArchitect
-// );
-// router.get(
-// 	'/private-tasks/',
-// 	architectController.removeArchitect
-// );
+router.get(
+	'/private/',
+	verifyToken,
+	userController.privateShoppingList
+);
 
 module.exports = router;
