@@ -8,7 +8,7 @@ const envConfig = require(`./${env}.js`);
 
 const all = {
 	env,
-	port: 3000,
+	port: 4000,
 	logger: {
 		level: 'debug'
 	},
